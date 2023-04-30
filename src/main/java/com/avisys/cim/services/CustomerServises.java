@@ -12,6 +12,8 @@ public interface CustomerServises {
 	
 	List<Customer> findByLastName(String lastName);
 	
-	List<Customer> findByMobileNumber(String mobileNumber);
+	Customer findByMobileNumber(String mobileNumber);
+	
+	Customer saveCustomer(Customer customer);
 
 }

@@ -2,6 +2,8 @@ package com.avisys.cim.servicesimpl;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,10 +40,18 @@ public class CustomerServicesImpl implements CustomerServises {
 	}
 
 	@Override
-	public List<Customer> findByMobileNumber(String mobileNumber) {
+	public Customer findByMobileNumber(String mobileNumber) {
 		// TODO Auto-generated method stub
-		List<Customer> customersByMobileNumber = this.customerRepository.findByMobileNumber(mobileNumber);
+		Customer customersByMobileNumber = this.customerRepository.findByMobileNumber(mobileNumber);
 		return customersByMobileNumber;
+	}
+
+	@Override
+	public Customer saveCustomer(Customer customer) {
+		// TODO Auto-generated method stub 
+		if(customerRepository.findByMobileNumber(customer.getMobileNumber()) != null) throw new RuntimeException("Unable to create Customer. Mobile number already present.");
+			
+		return this.customerRepository.save(customer);
 	}
 
 }

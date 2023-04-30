@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,9 +41,15 @@ public class CustomerController {
 	}
 
 	@GetMapping("/get-customers-by-mobile-number/{mobileNumber}")
-	public ResponseEntity <List<Customer>> getCustomersByMobileNumber(@PathVariable String mobileNumber){
-	List<Customer> customersMatchedByMobileNumber = this.customerServices.findByMobileNumber(mobileNumber);
-	return new ResponseEntity <List<Customer>>(customersMatchedByMobileNumber, HttpStatus.OK);
+	public ResponseEntity <Customer> getCustomersByMobileNumber(@PathVariable String mobileNumber){
+	Customer customerMatchedByMobileNumber = this.customerServices.findByMobileNumber(mobileNumber);
+	return new ResponseEntity <Customer>(customerMatchedByMobileNumber, HttpStatus.OK);
+	}
+	
+	@PostMapping("/new-customer")
+	public ResponseEntity <Customer> saveNewCustomer(@RequestBody Customer customer){
+		Customer newCustomer = this.customerServices.saveCustomer(customer);
+		return new ResponseEntity<Customer> (newCustomer, HttpStatus.CREATED);
 	}
 	
 }
