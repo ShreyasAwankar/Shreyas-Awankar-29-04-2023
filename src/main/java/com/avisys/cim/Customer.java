@@ -85,7 +85,5 @@ public class Customer {
 		this.mobileNumber = mobileNumber;
 	}
 	
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<MobileNumbers> mobileNumberList = new ArrayList<>();
 
 }

@@ -2,7 +2,6 @@ package com.avisys.cim.servicesimpl;
 
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,5 +52,22 @@ public class CustomerServicesImpl implements CustomerServises {
 			
 		return this.customerRepository.save(customer);
 	}
+
+	@Override
+	public Customer updateCustomer(String mobileNumber, Customer customer) {
+		// TODO Auto-generated method stub
+		
+		Customer updateCustomer = this.customerRepository.findByMobileNumber(mobileNumber);
+		if(updateCustomer == null) throw new RuntimeException( "Customer with given mobile number dose not exist");
+		
+		updateCustomer.setFirstName(customer.getFirstName());
+		updateCustomer.setLastName(customer.getLastName());
+		updateCustomer.setMobileNumber(customer.getMobileNumber());
+
+		this.customerRepository.save(updateCustomer);
+		return updateCustomer;
+	}
+
+
 
 }

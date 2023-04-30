@@ -16,4 +16,6 @@ public interface CustomerServises {
 
 	Customer findByMobileNumber(String mobileNumber);
 	
+	Customer updateCustomer(String mobileNumber, Customer customer);
+	
 }
