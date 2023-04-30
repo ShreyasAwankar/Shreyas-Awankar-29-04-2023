@@ -1,10 +1,15 @@
 package com.avisys.cim;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -32,6 +37,7 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public Customer(Long id, String firstName, String lastName, String mobileNumber) {
 		super();
 		this.id = id;
@@ -39,6 +45,7 @@ public class Customer {
 		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
 	}
+
 
 	@Override
 	public String toString() {
@@ -77,5 +84,8 @@ public class Customer {
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
+	
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MobileNumbers> mobileNumberList = new ArrayList<>();
 
 }
